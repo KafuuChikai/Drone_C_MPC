@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/drone_point.dir/src/drone_point.cpp.o  -o drone_point   -L/home/wx/acados/lib  -Wl,-rpath,/home/wx/acados/lib:/home/wx/Drone_C_MPC/build libdrone_simple_ocp_shared_lib.so libdrone_simple_sim_shared_lib.so -lacados -lhpipm -lblasfeo 

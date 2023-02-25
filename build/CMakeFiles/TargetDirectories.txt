@@ -1,0 +1,8 @@
+/home/wx/Drone_C_MPC/build/CMakeFiles/rebuild_cache.dir
+/home/wx/Drone_C_MPC/build/CMakeFiles/edit_cache.dir
+/home/wx/Drone_C_MPC/build/CMakeFiles/drone_test.dir
+/home/wx/Drone_C_MPC/build/CMakeFiles/drone_point.dir
+/home/wx/Drone_C_MPC/build/CMakeFiles/drone_sim_shared_lib.dir
+/home/wx/Drone_C_MPC/build/CMakeFiles/drone_simple_sim_shared_lib.dir
+/home/wx/Drone_C_MPC/build/CMakeFiles/drone_ocp_shared_lib.dir
+/home/wx/Drone_C_MPC/build/CMakeFiles/drone_simple_ocp_shared_lib.dir

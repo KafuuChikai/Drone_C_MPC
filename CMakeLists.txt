@@ -15,7 +15,7 @@ pkg_search_module(Eigen3 REQUIRED eigen3)
 include_directories(${Eigen3_INCLUDE_DIRS})
 
 # include some more paths
-set(ENV{ACADOS_SOURCE_DIR} "/home/wx/acados")
+set(ENV{ACADOS_SOURCE_DIR} "$ENV{HOME}/acados")
 include_directories($ENV{ACADOS_SOURCE_DIR}/include)
 include_directories($ENV{ACADOS_SOURCE_DIR}/include/blasfeo/include)
 include_directories($ENV{ACADOS_SOURCE_DIR}/include/hpipm/include)
@@ -23,36 +23,30 @@ include_directories($ENV{ACADOS_SOURCE_DIR}/include/acados)
 # include_directories($ENV{ACADOS_SOURCE_DIR}/include/acados_c)
 # include_directories($ENV{ACADOS_SOURCE_DIR}/include/qpOASES_e)
 include_directories(python/c_generated_code)
-include_directories(../Test_mpc/c_generated_code)
 
 # load acados libs
 link_directories($ENV{ACADOS_SOURCE_DIR}/lib)
 
+# simple model
 file(GLOB drone_simple_ocp_solver
         python/c_generated_code/acados_solver_drone_simple.c
         )
-
 file(GLOB drone_simple_casadi_fun
-        python/c_generated_code/drone_simple_model/drone_simple_expl_ode_fun.c
-        python/c_generated_code/drone_simple_model/drone_simple_expl_vde_forw.c
-        python/c_generated_code/drone_simple_model/drone_simple_expl_vde_adj.c)
-
+        python/c_generated_code/drone_simple_model/*.c)
 file(GLOB drone_simple_sim_solver
         python/c_generated_code/acados_sim_solver_drone_simple.c
         )
-        
+
+# full model
 file(GLOB drone_ocp_solver
-        ../Test_mpc/c_generated_code/acados_solver_drone.c
+        python/c_generated_code/acados_solver_drone.c
         )
-
 file(GLOB drone_casadi_fun
-        ../Test_mpc/c_generated_code/drone_model/drone_expl_ode_fun.c
-        ../Test_mpc/c_generated_code/drone_model/drone_expl_vde_forw.c
-        ../Test_mpc/c_generated_code/drone_model/drone_expl_vde_adj.c)
-
+        python/c_generated_code/drone_model/*.c)
 file(GLOB drone_sim_solver
-        ../Test_mpc/c_generated_code/acados_sim_solver_drone.c
+        python/c_generated_code/acados_sim_solver_drone.c
         )
+
 # Define the example
 ## these two are only basic tests
 #add_executable(main_sim_mobile_robot ../python/c_generated_code/main_sim_mobile_robot.c
@@ -69,12 +63,14 @@ file(GLOB drone_sim_solver
 #add_test(main_mobile_robot main_mobile_robot)
 
 # create libraries
+# simple model
 add_library(drone_simple_ocp_shared_lib SHARED ${drone_simple_ocp_solver} ${drone_simple_casadi_fun} )
 target_link_libraries(drone_simple_ocp_shared_lib acados hpipm blasfeo)
 
 add_library(drone_simple_sim_shared_lib SHARED ${drone_simple_sim_solver} ${drone_simple_casadi_fun})
 target_link_libraries(drone_simple_sim_shared_lib acados hpipm blasfeo)
 
+# full model
 add_library(drone_ocp_shared_lib SHARED ${drone_ocp_solver} ${drone_casadi_fun} )
 target_link_libraries(drone_ocp_shared_lib acados hpipm blasfeo)
 
